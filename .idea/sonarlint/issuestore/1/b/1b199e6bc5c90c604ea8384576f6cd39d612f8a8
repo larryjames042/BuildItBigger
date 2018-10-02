@@ -1,0 +1,13 @@
+
+Fsquid:S1068"+Remove this unused "context" private field.(êİç8©õÒÑâ,
+qsquid:S1450"VRemove the "context" field and declare it as a local variable in the relevant methods.(êİç8©õÒÑâ,
+csquid:CallToDeprecatedMethod"6Remove this use of "ProgressDialog"; it is deprecated.(ÑÍµë8©õÒÑâ,
+csquid:CallToDeprecatedMethod"6Remove this use of "ProgressDialog"; it is deprecated.(ÑÍµë8©õÒÑâ,
+Lsquid:S1172"+Remove this unused method parameter "view".(Ì›ñøûÿÿÿÿ8©õÒÑâ,
+Fsquid:S00108")Either remove or fill this block of code.(å¥‡8©õÒÑâ,
+esquid:UselessImportCheck"7Remove this unused import 'android.widget.ProgressBar'.(³ñÿŸùÿÿÿÿ8©õÒÑâ,
+_squid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8©õÒÑâ,
+squid:UselessImportCheck"eRemove this unused import 'com.google.api.client.googleapis.services.GoogleClientRequestInitializer'.(úóËÜ8©õÒÑâ,
+fsquid:UselessImportCheck"=Remove this unused import 'mirror.co.larry.javajokes.Jokers'.(¸è¯8©õÒÑâ,
+‹squid:UselessImportCheck"bRemove this unused import 'com.google.api.client.googleapis.services.AbstractGoogleClientRequest'.(±Üıì8©õÒÑâ,
+ksquid:MaximumInheritanceDepth"=This class has 10 parents which is greater than 5 authorized.(²Ú±8©õÒÑâ,

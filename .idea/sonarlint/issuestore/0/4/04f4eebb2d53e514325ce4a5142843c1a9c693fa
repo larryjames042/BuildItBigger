@@ -1,0 +1,15 @@
+
+Fsquid:S1068"+Remove this unused "context" private field.(êİç8©õÒÑâ,
+qsquid:S1450"VRemove the "context" field and declare it as a local variable in the relevant methods.(êİç8©õÒÑâ,
+Lsquid:S1481"+Remove this unused "result" local variable.(ÜÜ¸úÿÿÿÿ8©õÒÑâ,
+dsquid:CallToDeprecatedMethod"7Remove this use of "AndroidTestCase"; it is deprecated.(”øÄæ8©õÒÑâ,
+psquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—Á®Ÿúÿÿÿÿ8©õÒÑâ,
+œsquid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(­–ÀS8©õÒÑâ,
+Dsquid:S1185"(Remove this method to simply inherit it.(ËĞƒ8©õÒÑâ,
+[squid:S1854":Remove this useless assignment to local variable "result".(ÜÜ¸úÿÿÿÿ8©õÒÑâ,
+qsquid:UselessImportCheck"IRemove this unused import 'mirror.co.larry.androidjokerlib.JokeActivity'.(ÑŞ¥8©õÒÑâ,
+^squid:UselessImportCheck"5Remove this unused import 'org.junit.runner.RunWith'.(¸ıºô8©õÒÑâ,
+`squid:UselessImportCheck"7Remove this unused import 'android.app.ProgressDialog'.(¶ÍÔÓ8©õÒÑâ,
+[squid:UselessImportCheck"3Remove this unused import 'android.content.Intent'.(³ğ‹G8©õÒÑâ,
+xsquid:UselessImportCheck"JRemove this unused import 'com.udacity.gradle.builditbigger.MainActivity'.(ğ¾Õ¢üÿÿÿÿ8©õÒÑâ,
+Tsquid:UselessImportCheck"+Remove this unused import 'org.junit.Rule'.(ä„æÆ8©õÒÑâ,
