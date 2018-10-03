@@ -1,29 +1,28 @@
-package com.udacity.gradle.builditbigger;
+package com.udacity.gradle.builditbigger.paid;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
-
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.udacity.gradle.builditbigger.AsyncTaskResponse;
+import com.udacity.gradle.builditbigger.EndpointsAsyncTask;
+import com.udacity.gradle.builditbigger.NetUtil;
+import com.udacity.gradle.builditbigger.R;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
 import mirror.co.larry.androidjokerlib.JokeActivity;
-import mirror.co.larry.javajokes.Jokers;
-
 
 public class MainActivity extends AppCompatActivity {
     static String jokes;
@@ -31,57 +30,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     public void tellJoke(View view) {
         if(NetUtil.isConnected(this)){
-                new EndpointsAsyncTask().execute();
-
+            loadAsynctask();
         }else{
             Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
         }
 
     }
-
-
-
-    public  class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
-        private MyApi myApiService = null;
-        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog.setMessage("Fetching Joke");
-            progressDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            if(myApiService == null) {  // Only do this once
-                MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                        .setRootUrl("https://build-it-bigger-217807.appspot.com/_ah/api/");
-                // end options for devappserver
-
-                myApiService = builder.build();
+    private void loadAsynctask(){
+        final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(new AsyncTaskResponse() {
+            @Override
+            public String processFinish(String response) {
+                progressDialog.dismiss();
+                String jokes = response;
+                Intent launchJokerActivity = new Intent(MainActivity.this, JokeActivity.class);
+                launchJokerActivity.putExtra("joke_extra", jokes);
+                startActivity(launchJokerActivity);
+                return jokes;
             }
 
-            try {
-                return myApiService.sayHi().execute().getData();
-            } catch (IOException e) {
-                return e.getMessage();
+            @Override
+            public void beforeProcess() {
+                progressDialog.setMessage("Fetching Joke");
+                progressDialog.show();
             }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            progressDialog.dismiss();
-            jokes = result;
-            Intent launchJokerActivity = new Intent(MainActivity.this, JokeActivity.class);
-            launchJokerActivity.putExtra("joke_extra", jokes);
-            MainActivity.this.startActivity(launchJokerActivity);
-        }
+        });
+        endpointsAsyncTask.execute();
     }
 
     @Override
@@ -105,9 +83,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }
-
-
-
-

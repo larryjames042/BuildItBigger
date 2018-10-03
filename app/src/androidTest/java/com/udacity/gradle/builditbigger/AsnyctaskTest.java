@@ -1,5 +1,7 @@
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.udacity.gradle.builditbigger.AsyncTaskResponse;
+import com.udacity.gradle.builditbigger.EndpointsAsyncTask;
 import com.udacity.gradle.builditbigger.MainActivity;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
@@ -33,8 +35,18 @@ public class AsnyctaskTest {
     public void asyntaskTest_returnValue_isCorrect() throws ExecutionException, InterruptedException {
        Jokers jokers = new Jokers();
        String toCompare = "";
-       assertEquals(jokers.jokeList().size(), 6);
-       String result = new EndpointsAsyncTask().execute().get();
+        EndpointsAsyncTask task = new EndpointsAsyncTask(new AsyncTaskResponse() {
+            @Override
+            public String processFinish(String response) {
+                return response;
+            }
+
+            @Override
+            public void beforeProcess() {
+
+            }
+        });
+        String result =  task.execute().get();
        for(String i : jokers.jokeList()){
            toCompare = i;
            if(toCompare.equals(result)){
@@ -42,37 +54,9 @@ public class AsnyctaskTest {
            }
        }
        assertEquals(result, toCompare);
+
     }
 
-    class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
-        private MyApi myApiService = null;
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
 
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            if(myApiService == null) {  // Only do this once
-                MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                        .setRootUrl("https://build-it-bigger-217807.appspot.com/_ah/api/");
-                // end options for devappserver
-
-                myApiService = builder.build();
-            }
-
-            try {
-                return myApiService.sayHi().execute().getData();
-            } catch (IOException e) {
-                return e.getMessage();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-        }
-    }
 }
